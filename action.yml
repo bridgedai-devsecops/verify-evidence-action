@@ -1,0 +1,49 @@
+name: 'BridgedAI Verify Evidence'
+description: 'artifact-verify: POST /v1/artifacts/:artifactId/verify-supply-chain. build-summary: GET /v1/builds/:buildId/supply-chain-verification. Requires projects:read.'
+author: 'BridgedAI'
+branding:
+  icon: 'shield'
+  color: 'purple'
+inputs:
+  api-base:
+    required: false
+  api-key:
+    required: false
+  org-id:
+    required: false
+  mode:
+    description: 'artifact-verify | build-summary'
+    required: false
+    default: 'artifact-verify'
+  artifact-id:
+    description: 'Bridged artifact id (mode=artifact-verify).'
+    required: false
+  build-id:
+    description: 'Bridged build id (mode=build-summary).'
+    required: false
+  policy-id:
+    description: 'Optional trust policy id (artifact-verify only).'
+    required: false
+  offline:
+    description: 'Passed to verify-supply-chain body (default true).'
+    required: false
+    default: 'true'
+  fail-on-not-verified:
+    description: 'When true, fail if verification status is not verified.'
+    required: false
+    default: 'false'
+  timeout-ms:
+    required: false
+    default: '120000'
+outputs:
+  verification-status:
+    description: 'verified | failed | warning | unsupported | not_present (artifact-verify)'
+  verified:
+    description: 'boolean string from artifact-verify'
+  findings-json:
+    description: 'JSON string of findings array'
+  response-json:
+    description: 'Raw JSON summary of the BridgedAI response'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
